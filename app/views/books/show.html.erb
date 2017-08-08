@@ -1,0 +1,43 @@
+<h2>Show page</h2>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag @book.book_img.url(:book_show), class: "book_show" %>
+  </div>
+
+
+  <div class="col-md-8">
+    <h2><%= @book.title %></h2>
+    <h3><%= @book.author %></h3>
+    <p><%= @book.description %></p>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4">
+
+    <%= render @book.reviews %>
+
+      <div>
+        <%= link_to "Add Review", new_book_review_path(@book) %>
+      </div>
+
+  </div>
+</div>
+
+  <% if admin_signed_in? %>
+    <% if @book.admin_id == current_admin.id %>
+
+  <%= link_to "Edit", edit_book_path(@book) %>
+
+  <%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are You SURE ?" } %>
+
+  <% end %>
+<% end %>
+
+  <% else %>
+
+  <%= link_to "Back", root_path %>
+
+
